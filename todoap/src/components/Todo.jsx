@@ -4,20 +4,9 @@ import { TodoInput } from "./TodoInput";
 import { TodoList } from "./TodoList";
 import { Stack, Button } from "@mui/material";
 
-// CRUD
-
-// Creation , Reading, Updation , Deletion
-
 const Todo = () => {
   const [data, setData] = React.useState([]);
   const [showAll, setShowAll] = React.useState(true);
-
-  // list  -
-
-  // [
-  // {title : 'Eat', status : false, id: 1},
-  // {title:'sleep', status: false, id:2 },
-  // ]
 
   const handleAdd = (title) => {
     const payload = {
@@ -32,7 +21,7 @@ const Todo = () => {
     const updatedData = data.map((item) =>
       item.id === id ? { ...item, status: !item.status } : item
     );
-    // [{title : 'Eat', id: 1, status: true}, {title:'sleep', status: false, id:2}]
+
     setData(updatedData);
   };
 
