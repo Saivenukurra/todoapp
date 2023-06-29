@@ -2,7 +2,7 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 import { TodoInput } from "./TodoInput";
 import { TodoList } from "./TodoList";
-import { Stack, Button } from "@mui/material";
+import { Stack, TextField, Button } from "@mui/material";
 
 const Todo = () => {
   const [data, setData] = React.useState([]);
@@ -30,6 +30,13 @@ const Todo = () => {
     setData(updatedData);
   };
 
+  const editTask = (id, editTitle) => {
+    const updatedData = data.map((item) =>
+      item.id === id ? { ...item, title: editTitle } : item
+    );
+    setData(updatedData);
+  };
+
   return (
     <Stack spacing={3}>
       <TodoInput handleAdd={handleAdd} />
@@ -40,6 +47,7 @@ const Todo = () => {
         .filter((item) => (showAll ? true : !item.status))
         .map((item) => (
           <TodoList
+            editTask={editTask}
             key={item.id}
             {...item}
             handleToggle={handleToggle}

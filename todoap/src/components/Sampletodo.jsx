@@ -1,15 +1,26 @@
+import * as React from "react";
+import Button from "@mui/material/Button";
+import EditIcon from "@mui/icons-material/Edit";
+import Stack from "@mui/material/Stack";
+
+function Sampletodo() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button variant="outlined" startIcon={<EditIcon />}>
+        Edit
+      </Button>
+      <Button variant="outlined" endIcon={<EditIcon />}>
+        Edit
+      </Button>
+    </Stack>
+  );
+}
+export default Sampletodo;
+
+
 import React from "react";
-import {
-  TextField,
-  Stack,
-  Modal,
-  Box,
-  Grid,
-  Button,
-  Typography,
-} from "@mui/material";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import CancelIcon from "@mui/icons-material/Cancel";
+import { TextField, Modal, Box, Grid, Button, Typography } from "@mui/material";
+
 const TodoList = ({
   title,
   id,
@@ -17,7 +28,7 @@ const TodoList = ({
   handleToggle,
   handleDelete,
   editTask,
-  handleAdd,
+  handleAdd
 }) => {
   const style = {
     position: "absolute",
@@ -29,18 +40,17 @@ const TodoList = ({
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
-    display: "flex-column",
   };
-  const [editTitle, setEditTitle] = React.useState("");
+
+  const [title, setTitle] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={2}>
-        <Button onClick={handleOpen}>
-          <EditNoteIcon fontSize="large" color="gray" />
-        </Button>
+        <Button onClick={handleOpen}>Open modal</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -48,33 +58,15 @@ const TodoList = ({
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Stack spacing={3}>
-              <TextField
-                variant="outlined"
-                size="small"
-                onChange={(e) => setEditTitle(e.target.value)}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Button
-                  variant="outlined"
-                  onClick={() => {
-                    editTask(id, editTitle);
-
-                    setOpen(false);
-                  }}
-                >
-                  save
-                </Button>
-                <Button variant="outlined" onClick={handleClose}>
-                  <CancelIcon fontSize="large" />
-                </Button>
-              </div>
-            </Stack>
+            <TextField
+              variant="outlined"
+              label="Add Something"
+              size="small"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <Button variant="outlined" onClick={() => handleAdd(title)}>
+              ADD
+            </Button>
           </Box>
         </Modal>
       </Grid>
