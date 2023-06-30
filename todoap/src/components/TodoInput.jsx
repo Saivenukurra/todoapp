@@ -1,6 +1,5 @@
 import React from "react";
 import { TextField, Button } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 
 const TodoInput = ({ handleAdd }) => {
   const [title, setTitle] = React.useState("");
@@ -17,9 +16,18 @@ const TodoInput = ({ handleAdd }) => {
         variant="outlined"
         label="Add Something"
         size="small"
-        onChange={(e) => setTitle(e.target.value)}
+        value={title}
+        onChange={(e) => {
+          setTitle(e.target.value);
+        }}
       />
-      <Button variant="outlined" onClick={() => handleAdd(title)}>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          handleAdd(title);
+          setTitle("");
+        }}
+      >
         ADD
       </Button>
     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 import { TodoInput } from "./TodoInput";
 import { TodoList } from "./TodoList";
-import { Stack, TextField, Button } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 
 const Todo = () => {
   const [data, setData] = React.useState([]);

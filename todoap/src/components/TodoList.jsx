@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  TextField,
-  Stack,
-  Modal,
-  Box,
-  Grid,
-  Button,
-  Typography,
-} from "@mui/material";
+import { TextField, Grid, Button, Typography } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import CancelIcon from "@mui/icons-material/Cancel";
 const TodoList = ({
@@ -17,66 +9,69 @@ const TodoList = ({
   handleToggle,
   handleDelete,
   editTask,
-  handleAdd,
 }) => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    display: "flex-column",
-  };
+  const [edit, setEdit] = React.useState(false);
   const [editTitle, setEditTitle] = React.useState("");
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  return (
+
+  const openEdit = () => {
+    setEdit(true);
+  };
+  const closeEdit = () => {
+    setEdit(false);
+  };
+  return edit ? (
     <Grid container spacing={2}>
       <Grid item xs={2}>
-        <Button onClick={handleOpen}>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            editTask(id, editTitle);
+            setEdit(false);
+          }}
+        >
+          Update
+        </Button>
+      </Grid>
+      <Grid item xs={3}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "20px",
+          }}
+        >
+          <TextField
+            variant="outlined"
+            size="small"
+            onChange={(e) => setEditTitle(e.target.value)}
+          />
+          <Button variant="outlined" onClick={closeEdit}>
+            <CancelIcon fontSize="medium" />
+          </Button>
+        </div>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography variant="h5">
+          {status ? "Completed" : "Not Completed"}
+        </Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Button variant="outlined" onClick={() => handleToggle(id)}>
+          Toggle
+        </Button>
+      </Grid>
+      <Grid item xs={2}>
+        <Button variant="outlined" onClick={() => handleDelete(id)}>
+          Delete
+        </Button>
+      </Grid>
+    </Grid>
+  ) : (
+    <Grid container spacing={2}>
+      <Grid item xs={2}>
+        <Button onClick={openEdit}>
           <EditNoteIcon fontSize="large" color="gray" />
         </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Stack spacing={3}>
-              <TextField
-                variant="outlined"
-                size="small"
-                onChange={(e) => setEditTitle(e.target.value)}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Button
-                  variant="outlined"
-                  onClick={() => {
-                    editTask(id, editTitle);
-
-                    setOpen(false);
-                  }}
-                >
-                  save
-                </Button>
-                <Button variant="outlined" onClick={handleClose}>
-                  <CancelIcon fontSize="large" />
-                </Button>
-              </div>
-            </Stack>
-          </Box>
-        </Modal>
       </Grid>
       <Grid item xs={3}>
         <Typography variant="h5">{title}</Typography>
@@ -93,7 +88,7 @@ const TodoList = ({
       </Grid>
       <Grid item xs={2}>
         <Button variant="outlined" onClick={() => handleDelete(id)}>
-          Delete Todo
+          Delete
         </Button>
       </Grid>
     </Grid>
