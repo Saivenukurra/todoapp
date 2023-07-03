@@ -1,7 +1,9 @@
 import React from "react";
-import { TextField, Grid, Button, Typography } from "@mui/material";
+import { Grid, Button, Typography } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import CancelIcon from "@mui/icons-material/Cancel";
+import InputBox from "./InputBox";
+import CButton from "./CButton";
 const TodoList = ({
   title,
   id,
@@ -11,7 +13,7 @@ const TodoList = ({
   editTask,
 }) => {
   const [edit, setEdit] = React.useState(false);
-  const [editTitle, setEditTitle] = React.useState("");
+  const [editTitle, setEditTitle] = React.useState(title);
 
   const openEdit = () => {
     setEdit(true);
@@ -40,38 +42,31 @@ const TodoList = ({
             gap: "20px",
           }}
         >
-          <TextField
-            variant="outlined"
-            size="small"
-            onChange={(e) => setEditTitle(e.target.value)}
-          />
-          <Button variant="outlined" onClick={closeEdit}>
+          <InputBox value={editTitle} onChange={setEditTitle} />
+          <CButton onClick={closeEdit}>
             <CancelIcon fontSize="medium" />
-          </Button>
+          </CButton>
         </div>
       </Grid>
+
       <Grid item xs={3}>
         <Typography variant="h5">
           {status ? "Completed" : "Not Completed"}
         </Typography>
       </Grid>
       <Grid item xs={2}>
-        <Button variant="outlined" onClick={() => handleToggle(id)}>
-          Toggle
-        </Button>
+        <CButton onClick={() => handleToggle(id)}>Toggle</CButton>
       </Grid>
       <Grid item xs={2}>
-        <Button variant="outlined" onClick={() => handleDelete(id)}>
-          Delete
-        </Button>
+        <CButton onClick={() => handleDelete(id)}>Delete</CButton>
       </Grid>
     </Grid>
   ) : (
     <Grid container spacing={2}>
       <Grid item xs={2}>
-        <Button onClick={openEdit}>
+        <CButton onClick={openEdit}>
           <EditNoteIcon fontSize="large" color="gray" />
-        </Button>
+        </CButton>
       </Grid>
       <Grid item xs={3}>
         <Typography variant="h5">{title}</Typography>
@@ -82,14 +77,10 @@ const TodoList = ({
         </Typography>
       </Grid>
       <Grid item xs={2}>
-        <Button variant="outlined" onClick={() => handleToggle(id)}>
-          Toggle
-        </Button>
+        <CButton onClick={() => handleToggle(id)}>Toggle</CButton>
       </Grid>
       <Grid item xs={2}>
-        <Button variant="outlined" onClick={() => handleDelete(id)}>
-          Delete
-        </Button>
+        <CButton onClick={() => handleDelete(id)}>Delete</CButton>
       </Grid>
     </Grid>
   );

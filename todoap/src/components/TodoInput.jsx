@@ -1,5 +1,6 @@
 import React from "react";
-import { TextField, Button } from "@mui/material";
+import { Button } from "@mui/material";
+import InputBox from "./InputBox";
 
 const TodoInput = ({ handleAdd }) => {
   const [title, setTitle] = React.useState("");
@@ -12,15 +13,7 @@ const TodoInput = ({ handleAdd }) => {
         gap: "30px",
       }}
     >
-      <TextField
-        variant="outlined"
-        label="Add Something"
-        size="small"
-        value={title}
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
-      />
+      <InputBox value={title} onChange={setTitle} />
       <Button
         variant="outlined"
         onClick={() => {
